@@ -1,0 +1,83 @@
+﻿@model IEnumerable<GestionaleHotel.Models.Prenotazione>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista Prenotazioni</h2>
+
+<p class="btn btn-success">
+    <a href="~/Prenotazione/Create" class="text-decoration-none text-white mt-3">Aggiungi Prenotazione</a>
+</p>
+
+<table class="table text-center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DataPrenotazione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnnoPrenotazione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InizioSoggiorno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FineSoggiorno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Caparra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TariffaSoggiorno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipologiaPrenotazione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDCamera)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataPrenotazione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnnoPrenotazione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InizioSoggiorno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FineSoggiorno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Caparra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TariffaSoggiorno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipologiaPrenotazione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDCamera)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
+            <a href="@Url.Action("Index", "ServiziAggiuntivi", new { id = item.IDPrenotazione })">Servizi Aggiuntivi</a>
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+
+<h2>Dashboard</h2>
+
+
+
+<input id="CF" type="text" placeholder="Inserisci il Codice Fiscale da cercare"/>
+<button id="btnPrenotazioneByCF" class="btn btn-warning btn-custom btn-sm font-monospace fw-semibold me-2">Prenotazioni per Codice Fiscale</button>
+<hr />
+
+<button id="btnPrenotazioneByFB" class="btn btn-warning btn-custom btn-sm font-monospace fw-semibold me-2">Prenotazioni per Pensione Completa</button>
+<hr />
+
+
+<div id="risultati" class="mt-3"></div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+
+    <script>
+          // Funzioni AJAX
+
+        $(document).ready(function () {
+            @*$('#btnPrenotazioneByCF').click(function () {
+                var CodiceFiscale = $('#CF')[0].value;
+                console.log($('#CF')[0].value)
+                var url = @Url.Action("PrenotazioneByCF", "Prenotazione") + "/?CodiceFiscale=" + CodiceFiscale + "&flag=g";
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(prenotazioni) {
+                        var contenuto = '<h5>Prenotazioni per Codice Fiscale</h5><ul>';
+                        prenotazioni.forEach(function(prenotazione) {
+                            contenuto += '<li>ID Prenotazione: ' + prenotazione.IDPrenotazione + ' ' + prenotazione.InizioSoggiorno + ' ' + prenotazione.FineSoggiorno + '</li>';
+                        });
+                        contenuto += '</ul>';
+                        $('#risultati').html(contenuto);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });*@
+
+            $('#btnPrenotazioneByFB').click(function() {
+                $.ajax({
+                    url: '@Url.Action("PrenotazioneByFB", "Prenotazione")',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (prenotazioni) {
+                        var contenuto = '<h5>Prenotazioni per Pensione Completa</h5><ul>';
+                        prenotazioni.forEach(function (prenotazione) {
+                            contenuto += '<li>ID Prenotazione: ' + prenotazione.IDPrenotazione + ' ' + prenotazione.TipologiaPrenotazione + '</li>';
+                        });
+                        contenuto += '</ul>';
+                        $('#risultati').html(contenuto);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+        });
+    </script>
+}
+
