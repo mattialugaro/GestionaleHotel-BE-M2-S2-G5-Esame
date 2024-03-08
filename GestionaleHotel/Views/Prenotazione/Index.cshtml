@@ -72,10 +72,8 @@
             @Html.DisplayFor(modelItem => item.IDCamera)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
-            <a href="@Url.Action("Index", "ServiziAggiuntivi", new { id = item.IDPrenotazione })">Servizi Aggiuntivi</a>
+            <a href="@Url.Action("Index", "ServiziAggiuntivi", new { id = item.IDPrenotazione })">Aggiungi Servizi</a>
+            <a href="@Url.Action("Index", "Checkout", new { id = item.IDPrenotazione })">Checkout</a>
         </td>
     </tr>
 }
