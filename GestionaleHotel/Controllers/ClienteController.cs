@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace GestionaleHotel.Controllers
 {
+    [Authorize]
     public class ClienteController : Controller
     {
         // GET: Cliente
@@ -60,6 +61,7 @@ namespace GestionaleHotel.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Cliente c)
         {
             string connectionstring = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString.ToString();

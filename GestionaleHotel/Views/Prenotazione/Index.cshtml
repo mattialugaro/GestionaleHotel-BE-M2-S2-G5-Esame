@@ -72,7 +72,7 @@
             @Html.DisplayFor(modelItem => item.IDCamera)
         </td>
         <td>
-            <a href="@Url.Action("Index", "ServiziAggiuntivi", new { id = item.IDPrenotazione })">Aggiungi Servizi</a>
+            <a href="@Url.Action("Create", "ServiziAggiuntivi", new { id = item.IDPrenotazione })">Aggiungi Servizi</a>
             <a href="@Url.Action("Index", "Checkout", new { id = item.IDPrenotazione })">Checkout</a>
         </td>
     </tr>

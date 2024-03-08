@@ -9,37 +9,42 @@ using System.Web.Mvc;
 
 namespace GestionaleHotel.Controllers
 {
+    [Authorize]
     public class CheckoutController : Controller
     {
         // GET: Checkout
         public ActionResult Index(int id)
         {
-            List<Checkout> listaChechout = new List<Checkout>();
-            Checkout checkout = new Checkout();
+            List<Checkout> listaCheckout = new List<Checkout>();
+            Checkout checkout = new Checkout() { listaServizi = new List<ServiziAggiuntivi>() };
             string connectionstring = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString.ToString();
             SqlConnection conn = new SqlConnection(connectionstring);
 
             try
             {
                 conn.Open();
-                string query = "SELECT NumeroCamera, InizioSoggiorno, FineSoggiorno, TariffaSoggiorno FROM Prenotazione AS P INNER JOIN Camera AS C ON P.IDCamera = C.IDCamera WHERE IDPrenotazione = @IDPrenotazione";
+                string query = "SELECT NumeroCamera, InizioSoggiorno, FineSoggiorno, Caparra, TariffaSoggiorno FROM Prenotazione AS P INNER JOIN Camera AS C ON P.IDCamera = C.IDCamera WHERE IDPrenotazione = @IDPrenotazione";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@IDPrenotazione", id);
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    
                     checkout.NumeroCamera = Convert.ToInt16(reader["NumeroCamera"]);
                     checkout.InizioSoggiorno = Convert.ToDateTime(reader["InizioSoggiorno"]);
                     checkout.FineSoggiorno = Convert.ToDateTime(reader["FineSoggiorno"]);
                     checkout.Caparra = Convert.ToInt16(reader["Caparra"]);
                     checkout.TariffaSoggiorno = Convert.ToInt16(reader["TariffaSoggiorno"]);
                 }
+                reader.Close();
 
                 query = "SELECT * FROM ServiziAggiuntivi WHERE IDPrenotazione = @IDPrenotazione";
 
                 SqlCommand cmd2 = new SqlCommand(query, conn);
+
+                cmd2.Parameters.AddWithValue("@IDPrenotazione", id);
                 SqlDataReader reader2 = cmd2.ExecuteReader();
 
                 while (reader2.Read())
@@ -61,7 +66,7 @@ namespace GestionaleHotel.Controllers
                 }
 
                 checkout.SaldoFinale = checkout.TariffaSoggiorno - checkout.Caparra + PrezzoTotaleServizi;
-                listaChechout.Add(checkout);
+                listaCheckout.Add(checkout);
             }
             catch (Exception ex)
             {
@@ -72,7 +77,7 @@ namespace GestionaleHotel.Controllers
                 conn.Close();
             }
 
-            return View(listaChechout);
+            return View(listaCheckout);
         }
 
     }

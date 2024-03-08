@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace GestionaleHotel.Controllers
 {
+    [Authorize]
     public class PrenotazioneController : Controller
     {
         // GET: Prenotazione
@@ -62,6 +63,7 @@ namespace GestionaleHotel.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Prenotazione p)
         {
             string connectionstring = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString.ToString();

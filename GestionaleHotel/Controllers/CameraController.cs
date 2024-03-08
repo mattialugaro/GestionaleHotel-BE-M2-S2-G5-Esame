@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace GestionaleHotel.Controllers
 {
+    [Authorize]
     public class CameraController : Controller
     {
         // GET: Camera
@@ -55,6 +56,7 @@ namespace GestionaleHotel.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Camera cm)
         {
             string connectionstring = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString.ToString();

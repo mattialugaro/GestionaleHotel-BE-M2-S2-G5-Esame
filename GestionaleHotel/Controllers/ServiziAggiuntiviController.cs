@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace GestionaleHotel.Controllers
 {
+    [Authorize]
     public class ServiziAggiuntiviController : Controller
     {
         public int IDPrenotazione;
@@ -22,6 +23,7 @@ namespace GestionaleHotel.Controllers
         }
             
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ServiziAggiuntivi s)
         {
             string connectionstring = ConfigurationManager.ConnectionStrings["MyDB"].ConnectionString.ToString();
